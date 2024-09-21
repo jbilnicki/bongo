@@ -1,4 +1,4 @@
-# bongo is a python module for analysis basic neuroscientific data.
+# bongo is a python module for analysis of  basic neuroscientific data.
 It is based mainly on: Pandas, NumPy, matplotlib.pyplot, openCV, seaborn 
 bongo contains submodules for: behaviour, neuroanatomy, cells and fast-scan cyclic voltammetry
 bongo is still under development.
