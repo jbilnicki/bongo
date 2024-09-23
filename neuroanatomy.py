@@ -2,19 +2,24 @@
 
 import cv2
 
-def manual_superimpose(img1_path, img2_path):
+def manual_superimpose(img1_path, img2_path, direction='right'):
     
     ''' Function to superimposing image of stereotactic atlas on microscope image of tissue
 
         function opens two image files and opens window in which user can manually adjust superimposing 
 
         img1, img2 - paths to images that should be opened
+        direction (string) 'right' or 'left' default 'right' if left flips the second image
     '''
     
     
     # Load images
     base_img = cv2.imread(img1_path)
     super_img = cv2.imread(img2_path)
+    
+    if direction == 'left':
+        super_img = cv2.flip(super_img, 1)
+        
 
     if base_img is None:
         print(f"Error: Unable to load image at {img1_path}")
@@ -99,7 +104,5 @@ def check_NAc(tissue_image, ap_cor=1.2, hemisphere='right'):
     except:
         raise ValueError("Inapropriate ap_core inupt: should be float")
         
-    if hemisphere == 'left':
-        pass
     
-    manual_superimpose(tissue_image, mask_img)
+    manual_superimpose(tissue_image, mask_img, hemisphere)
