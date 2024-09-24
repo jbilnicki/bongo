@@ -54,7 +54,7 @@ def manual_superimpose(img1_path, img2_path, direction='right'):
 
     # Function to update the superimposed image based on trackbar positions
     def update_superimpose(x):
-        alpha = 0.3
+        alpha = 0.6
         scale = cv2.getTrackbarPos('Scale', 'Superimpose') / 100
 
         # Resize the superimposed image
@@ -112,7 +112,8 @@ def check_structure(tissue_image, max_anterior, max_posterior, ap_cor, hemispher
         
     
     if ap_cor < 2.0 and ap_cor > 0.9:
-        manual_superimpose(tissue_image, mask_img, hemisphere)
+        #manual_superimpose(tissue_image, mask_img, hemisphere)
+        manual_superimpose(mask_img, tissue_image, hemisphere)
         
     else:
         raise ValueError("Sorry provided coordinate is not available")
