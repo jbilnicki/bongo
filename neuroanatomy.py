@@ -38,12 +38,23 @@ def manual_superimpose(img1_path, img2_path, direction='right'):
     # Create a window to display the images
     cv2.namedWindow('Superimpose', cv2.WINDOW_NORMAL)
 
+    # Resize images
+    base_img = cv2.resize(base_img, dsize=(600,600), interpolation=cv2.INTER_CUBIC)
+    super_img = cv2.resize(super_img, dsize=(300, 300), interpolation=cv2.INTER_CUBIC)
+    
+    # Ensure both images have the same number of channels
+    if len(base_img.shape) != len(super_img.shape):
+        if len(base_img.shape) == 2:
+            base_img = cv2.cvtColor(base_img, cv2.COLOR_GRAY2BGR)
+        if len(super_img.shape) == 2:
+            super_img = cv2.cvtColor(super_img, cv2.COLOR_GRAY2BGR)
 
+    # Create a window to display the images
+    cv2.namedWindow('Superimpose', cv2.WINDOW_AUTOSIZE)
 
     # Function to update the superimposed image based on trackbar positions
     def update_superimpose(x):
-        #alpha = cv2.getTrackbarPos('Transparency', 'Superimpose') / 100
-        alpha=0.3
+        alpha = 0.3
         scale = cv2.getTrackbarPos('Scale', 'Superimpose') / 100
 
         # Resize the superimposed image
@@ -60,20 +71,14 @@ def manual_superimpose(img1_path, img2_path, direction='right'):
         # Ensure the position is within bounds
         x_offset = min(max(0, x_offset), base_img.shape[1] - new_size[0])
         y_offset = min(max(0, y_offset), base_img.shape[0] - new_size[1])
-
+        
         # Overlay the resized image on the base image
         combined_img[y_offset:y_offset+new_size[1], x_offset:x_offset+new_size[0]] = cv2.addWeighted(
-            combined_img[y_offset:y_offset+new_size[1], x_offset:x_offset+new_size[0]],
-            1 - alpha,
-            super_img_resized,
-            alpha,
-            0
-        )
-
+            combined_img[y_offset:y_offset+new_size[1], x_offset:x_offset+new_size[0]],1 - alpha, super_img_resized,alpha,0)
+        
         cv2.imshow('Superimpose', combined_img)
 
-    # Create trackbars to adjust the transparency, scale, and position of the superimposed image
-    #cv2.createTrackbar('Transparency', 'Superimpose', 50, 100, update_superimpose)
+    # Create trackbars to adjust the scale and position of the superimposed image
     cv2.createTrackbar('Scale', 'Superimpose', 100, 200, update_superimpose)
     cv2.createTrackbar('X Position', 'Superimpose', 0, base_img.shape[1], update_superimpose)
     cv2.createTrackbar('Y Position', 'Superimpose', 0, base_img.shape[0], update_superimpose)
@@ -149,4 +154,4 @@ def check_VTA(tissue_image, ap_cor=5.2, hemisphere='right'):
     max_posterior = 6.0
     
     check_structure(tissue_image, max_anterior, max_posterior, ap_cor, hemisphere)
-    
+
