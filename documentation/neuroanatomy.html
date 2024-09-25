@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module neuroanatomy</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title">neuroanatomy</strong></td>
+<td class="extra"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Cmsi%5Cdesktop%5Cstudia%5Cbongo%5Cneuroanatomy.py">c:\users\msi\desktop\studia\bongo\neuroanatomy.py</a></td></tr></table>
+    <p><span class="code">#&nbsp;-*-&nbsp;coding:&nbsp;utf-8&nbsp;-*-</span></p>
+<p>
+<table class="section">
+<tr class="decor pkg-content-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td></tr>
+    
+<tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="cv2.html">cv2</a><br>
+</td><td class="multicolumn"><a href="pydoc.html">pydoc</a><br>
+</td><td class="multicolumn"></td><td class="multicolumn"></td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor functions-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Functions</strong></td></tr>
+    
+<tr><td class="decor functions-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt><a name="-check_NAc"><strong>check_NAc</strong></a>(tissue_image, ap_cor=1.2, hemisphere='right')</dt><dd><span class="code">Function&nbsp;to&nbsp;add&nbsp;mask&nbsp;from&nbsp;stereotactic&nbsp;atlas&nbsp;to&nbsp;tissue&nbsp;image&nbsp;from<br>
+nucleus&nbsp;accumbens&nbsp;to&nbsp;check&nbsp;whether&nbsp;roi&nbsp;is&nbsp;in&nbsp;core&nbsp;or&nbsp;shell&nbsp;of&nbsp;this&nbsp;nucleus<br>
+&nbsp;<br>
+tissue_image&nbsp;(string)&nbsp;path&nbsp;to&nbsp;our&nbsp;image<br>
+ap_cor&nbsp;(float)&nbsp;anterior-posterior&nbsp;disatnce&nbsp;in&nbsp;mm&nbsp;from&nbsp;bregma&nbsp;to&nbsp;our&nbsp;ROI<br>
+default&nbsp;=&nbsp;1.2&nbsp;specifies&nbsp;which&nbsp;mask&nbsp;program&nbsp;should&nbsp;use<br>
+hemisphere&nbsp;(string)&nbsp;'right'&nbsp;or&nbsp;'left'&nbsp;default&nbsp;=&nbsp;'right'&nbsp;mask&nbsp;images&nbsp;are&nbsp;<br>
+from&nbsp;right&nbsp;orientation&nbsp;so&nbsp;if&nbsp;image&nbsp;is&nbsp;from&nbsp;left&nbsp;hemisphere&nbsp;program&nbsp;flips&nbsp;mask</span></dd></dl>
+ <dl><dt><a name="-check_VTA"><strong>check_VTA</strong></a>(tissue_image, ap_cor=5.2, hemisphere='right')</dt><dd><span class="code">Function&nbsp;to&nbsp;add&nbsp;mask&nbsp;from&nbsp;stereotactic&nbsp;atlas&nbsp;to&nbsp;tissue&nbsp;image&nbsp;<br>
+and&nbsp;check&nbsp;if&nbsp;our&nbsp;ROI&nbsp;is&nbsp;in&nbsp;ventral&nbsp;tegmental&nbsp;area&nbsp;or&nbsp;in&nbsp;substantia&nbsp;nigra<br>
+&nbsp;<br>
+tissue_image&nbsp;(string)&nbsp;path&nbsp;to&nbsp;our&nbsp;image<br>
+ap_cor&nbsp;(float)&nbsp;anterior-posterior&nbsp;disatnce&nbsp;in&nbsp;mm&nbsp;from&nbsp;bregma&nbsp;to&nbsp;our&nbsp;ROI<br>
+default&nbsp;=&nbsp;5.2&nbsp;specifies&nbsp;which&nbsp;mask&nbsp;program&nbsp;should&nbsp;use<br>
+hemisphere&nbsp;(string)&nbsp;'right'&nbsp;or&nbsp;'left'&nbsp;default&nbsp;=&nbsp;'right'&nbsp;mask&nbsp;images&nbsp;are&nbsp;<br>
+from&nbsp;right&nbsp;orientation&nbsp;so&nbsp;if&nbsp;image&nbsp;is&nbsp;from&nbsp;left&nbsp;hemisphere&nbsp;program&nbsp;flips&nbsp;mask</span></dd></dl>
+ <dl><dt><a name="-check_structure"><strong>check_structure</strong></a>(tissue_image, max_anterior, max_posterior, ap_cor, hemisphere='right')</dt><dd><span class="code">Function&nbsp;to&nbsp;add&nbsp;mask&nbsp;from&nbsp;stereotactic&nbsp;atlas&nbsp;to&nbsp;brain&nbsp;tissue&nbsp;image<br>
+to&nbsp;check&nbsp;in&nbsp;which&nbsp;subregion&nbsp;is&nbsp;the&nbsp;ROI<br>
+&nbsp;<br>
+tissue_image&nbsp;(string)&nbsp;path&nbsp;to&nbsp;our&nbsp;image<br>
+ap_cor&nbsp;(float)&nbsp;anterior-posterior&nbsp;disatnce&nbsp;in&nbsp;mm&nbsp;from&nbsp;bregma&nbsp;to&nbsp;our&nbsp;ROI<br>
+specifies&nbsp;which&nbsp;mask&nbsp;program&nbsp;should&nbsp;use<br>
+hemisphere&nbsp;(string)&nbsp;'right'&nbsp;or&nbsp;'left'&nbsp;default&nbsp;=&nbsp;'right'&nbsp;mask&nbsp;images&nbsp;are&nbsp;<br>
+from&nbsp;right&nbsp;orientation&nbsp;so&nbsp;if&nbsp;image&nbsp;is&nbsp;from&nbsp;left&nbsp;hemisphere&nbsp;program&nbsp;flips&nbsp;mask</span></dd></dl>
+ <dl><dt><a name="-manual_superimpose"><strong>manual_superimpose</strong></a>(img1_path, img2_path, direction='right')</dt><dd><span class="code">Function&nbsp;to&nbsp;superimposing&nbsp;image&nbsp;of&nbsp;stereotactic&nbsp;atlas&nbsp;on&nbsp;microscope&nbsp;image&nbsp;of&nbsp;tissue<br>
+&nbsp;<br>
+function&nbsp;opens&nbsp;two&nbsp;image&nbsp;files&nbsp;and&nbsp;opens&nbsp;window&nbsp;in&nbsp;which&nbsp;user&nbsp;can&nbsp;manually&nbsp;adjust&nbsp;superimposing&nbsp;<br>
+&nbsp;<br>
+img1,&nbsp;img2&nbsp;-&nbsp;paths&nbsp;to&nbsp;images&nbsp;that&nbsp;should&nbsp;be&nbsp;opened<br>
+direction&nbsp;(string)&nbsp;'right'&nbsp;or&nbsp;'left'&nbsp;default&nbsp;'right'&nbsp;if&nbsp;left&nbsp;flips&nbsp;the&nbsp;second&nbsp;image</span></dd></dl>
+</td></tr></table>
+</body></html>
