@@ -111,8 +111,8 @@ def check_structure(tissue_image, max_anterior, max_posterior, ap_cor, hemispher
         raise TypeError("Inapropriate ap_core inupt: should be float")
         
     
-    if ap_cor < 2.0 and ap_cor > 0.9:
-        #manual_superimpose(tissue_image, mask_img, hemisphere)
+    if ap_cor <= max_anterior and ap_cor >= max_posterior:
+        
         manual_superimpose(mask_img, tissue_image, hemisphere)
         
     else:
@@ -133,7 +133,7 @@ def check_NAc(tissue_image, ap_cor=1.2, hemisphere='right'):
     
     # range of available coordinates from sterotactic atlas 
     max_anterior = 2.0
-    max_posterior = 0.9
+    max_posterior = 0.8
     
     check_structure(tissue_image, max_anterior, max_posterior, ap_cor, hemisphere)
     
