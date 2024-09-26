@@ -32,8 +32,15 @@ import neuroanatomy
 
 hemisphere = "left"
 our_sample_image = "img/Nac_example.png"
-anterior_posterior = 0.8
+anterior_posterior = 1.8
 
 neuroanatomy.check_NAc(our_sample_image, anterior_posterior, hemisphere)
 
 
+"""
+hemisphere = "left"
+our_sample_image = "img/Nac_example.png"
+anterior_posterior = 4.9
+
+neuroanatomy.check_VTA(our_sample_image, anterior_posterior, hemisphere)
+"""

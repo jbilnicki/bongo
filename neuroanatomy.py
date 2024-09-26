@@ -91,7 +91,7 @@ def manual_superimpose(img1_path, img2_path, direction='right'):
     cv2.destroyAllWindows()
 
 
-def check_structure(tissue_image, max_anterior, max_posterior, ap_cor, hemisphere='right'):
+def check_structure(tissue_image, ap_cor, hemisphere='right'):
     
     ''' Function to add mask from stereotactic atlas to brain tissue image
         to check in which subregion is the ROI
@@ -111,12 +111,9 @@ def check_structure(tissue_image, max_anterior, max_posterior, ap_cor, hemispher
         raise TypeError("Inapropriate ap_core inupt: should be float")
         
     
-    if ap_cor <= max_anterior and ap_cor >= max_posterior:
+    manual_superimpose(mask_img, tissue_image, hemisphere)
         
-        manual_superimpose(mask_img, tissue_image, hemisphere)
         
-    else:
-        raise ValueError("Sorry provided coordinate is not available")
         
     
     
@@ -135,7 +132,11 @@ def check_NAc(tissue_image, ap_cor=1.2, hemisphere='right'):
     max_anterior = 2.0
     max_posterior = 0.8
     
-    check_structure(tissue_image, max_anterior, max_posterior, ap_cor, hemisphere)
+    if ap_cor <= max_anterior and ap_cor >= max_posterior:
+        check_structure(tissue_image, ap_cor, hemisphere)
+        
+    else:
+        raise ValueError("Provided coordinate is not available")
     
     
     
@@ -154,5 +155,10 @@ def check_VTA(tissue_image, ap_cor=5.2, hemisphere='right'):
     max_anterior = 4.8
     max_posterior = 6.0
     
-    check_structure(tissue_image, max_anterior, max_posterior, ap_cor, hemisphere)
+    if ap_cor >= max_anterior and ap_cor <= max_posterior:
+        check_structure(tissue_image, ap_cor, hemisphere)
+        
+    else:
+        raise ValueError("Provided coordinate is not available")
+    
 
