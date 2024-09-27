@@ -173,7 +173,8 @@ def draw_ct_plot(transposed_file, volt, tonic):
 def draw_cv_plot(transposed_file, time, tonic):
     ''' Function takes transposed file for creating plot current vs voltage
     
-    time argument specifies which column of the DataFrame choose,
+    transposed_file - pd.DataFrame
+    time (int) argument specifies which column of the DataFrame choose,
     and tonic (boolean) informs if user wants to create plot with row data or after SDBR'''
 
     # checking if DataFrame is transposed in a proper manner
@@ -216,4 +217,94 @@ def draw_cv_plot(transposed_file, time, tonic):
     plt.xlabel("voltage (V)")
 
 
+
+def analyze_transients(array, diff_from_noise=2):
+    '''Function check number and amplitude of dopamine transients
+        
+        array - object storing current values from voltammetry (current vs time)
+        diff_from_noise (float, default=2) minimal diffrence in amplidude between noise and
+        event, events with amplidute greater than difference will be counted
+        as transients (default=2)
+        
+        Function fits polynominal to an array to estimate noise level
+        first derivative is used to find extrema
+        then maxima with enough amplitude (see -> diff_from_noise) are stored 
+        to a list
+        
+        Function draws plot to show which events were counted as transients.
+        
+        return list of events counted as transients to further analysis
+    '''
+    
+    try: 
+        array = np.array(array)
+    except:
+        raise TypeError("Can't convert your data to numpy.array")
+        
+    try:
+        float(diff_from_noise)
+    except:
+        raise TypeError("Invalid input - diff_from_noise should be float (or int)")
+        
+    
+    # first derivative
+    d_array = np.gradient(array)
+    
+    # extrema of a function corresponds to zeros of it's derivative
+    # returns indices from d_array where value == 0
+    zeros = np.where(d_array==0)[0]
+    
+    #######print(f'zeros: {zeros}')
+    
+    # taking values from array with indices from zeros
+    extrema = array[[zeros]]
+    
+    #########print(f'extrema: {extrema}')
+    
+    # noise estimation - fitting polynominal to our array
+    # x axis
+    x = range(0,len(array),1)
+    x = np.array(x)
+    
+    # degree of a polynominal
+    degree = 3
+    
+    fit = np.polyfit(x, array, degree)
+    # to get fitting from np.plyfit() values
+    noise = np.poly1d(fit)
+    
+    # checking if event is a transient
+    #transients = np.where(extrema>=diff_from_noise*noise.mean())
+    #transients = extrema[[transients]]
+    
+    
+    transients = []
+    '''
+    for i in range(0,len(extrema),1):
+        
+        event = extrema[i]
+        local_noise = noise[i]
+        
+        if event >= diff_from_noise * local_noise:
+            transients.append(event)
+     '''       
+    
+    # plot
+    plt.figure()
+    
+    # raw array data
+    plt.plot(x,array, noise(array))
+    
+    # add noise
+    #plt.plot(x,noise(array))
+    
+    # add transient marks
+    #plt.scatter(zeros, transients)
+    
+    
+    return transients
+    
+    
+    
+    
 #pydoc.writedoc("voltammetry")
