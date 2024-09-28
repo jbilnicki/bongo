@@ -5,6 +5,8 @@ import numpy as np
 import seaborn as sns
 import pandas as pd
 from scipy.signal import savgol_filter
+#from scipy.signal import argrelextrema
+from scipy.signal import find_peaks
 import pydoc
 
 
@@ -246,7 +248,7 @@ def analyze_transients(array, diff_from_noise=2):
     except:
         raise TypeError("Invalid input - diff_from_noise should be float (or int)")
         
-    
+    '''
     # first derivative
     d_array = np.gradient(array)
     
@@ -257,9 +259,13 @@ def analyze_transients(array, diff_from_noise=2):
     #######print(f'zeros: {zeros}')
     
     # taking values from array with indices from zeros
-    extrema = array[[zeros]]
+    #extrema = array[[zeros]]
+    extrema = array[zeros]
     
-    #########print(f'extrema: {extrema}')
+    
+    # for local maxima
+    #extrema = argrelextrema(array, np.greater)
+    extrema, _ = find_peaks(array, distance=5)
     
     # noise estimation - fitting polynominal to our array
     # x axis
@@ -267,11 +273,16 @@ def analyze_transients(array, diff_from_noise=2):
     x = np.array(x)
     
     # degree of a polynominal
-    degree = 3
+    degree = 5
     
+    
+    # fitting coefficients
     fit = np.polyfit(x, array, degree)
     # to get fitting from np.plyfit() values
-    noise = np.poly1d(fit)
+    noise = np.polyval(fit, x)
+    
+    
+    #noise = savgol_filter(array, window_length=5, polyorder=3)
     
     # checking if event is a transient
     #transients = np.where(extrema>=diff_from_noise*noise.mean())
@@ -279,7 +290,7 @@ def analyze_transients(array, diff_from_noise=2):
     
     
     transients = []
-    '''
+    
     for i in range(0,len(extrema),1):
         
         event = extrema[i]
@@ -287,13 +298,15 @@ def analyze_transients(array, diff_from_noise=2):
         
         if event >= diff_from_noise * local_noise:
             transients.append(event)
-     '''       
+    
+            
+    print(f't {transients}')
     
     # plot
     plt.figure()
     
     # raw array data
-    plt.plot(x,array, noise(array))
+    plt.plot(x,array, noise)
     
     # add noise
     #plt.plot(x,noise(array))
@@ -302,7 +315,75 @@ def analyze_transients(array, diff_from_noise=2):
     #plt.scatter(zeros, transients)
     
     
-    return transients
+    # Calculate residuals and standard deviation
+    residuals = array - noise
+    std_dev = np.std(residuals)
+    
+    # Identify events
+    threshold = diff_from_noise * std_dev
+    #events = array > (noise + threshold)
+    
+    transients = []
+    
+    for i in range(0,len(extrema),1):
+        
+        event = extrema[i]
+        local_noise = noise[i]
+        #l_th = threshold[i]
+        
+        if event >= diff_from_noise * (local_noise+threshold):
+            transients.append(event)
+    
+    '''
+    
+    # smoothing
+    array = savgol_filter(array, window_length=10, polyorder=5)
+    #array = calculate_moving_average(array)
+    #array = np.array(array)
+    
+    # find peaks
+    peaks,_ = find_peaks(array)
+    
+    
+    # x axis
+    x = range(0,len(array),1)
+    x = np.array(x)
+    
+    
+    # Fit a 3rd-degree polynomial
+    coefficients = np.polyfit(x, array, 3)
+    fitted_values = np.polyval(coefficients, x)
+    
+    # Calculate residuals and standard deviation
+    residuals = array - fitted_values
+    std_dev = np.std(residuals)
+    
+    # Identify events
+    threshold = diff_from_noise * std_dev
+    #events = y > (fitted_values + threshold)
+
+    
+    transients = []
+    
+    for peak in peaks:
+        
+        if array[peak] >= (fitted_values[peak] + threshold):
+            transients.append(peak)
+    
+    
+    # Plotting
+    
+    
+    plt.plot(x, array, label='Data')
+    #plt.plot(x, noise, label='3rd-degree fit', color='red')
+    #plt.scatter(x[events], array[events], label='Events', color='green')
+    #plt.scatter(x[transients], array[transients], label='Events', color='green')
+    plt.scatter(peaks, array[peaks], label='Peaks', color='green')
+    plt.scatter(transients, array[transients], label='Transients', color='red')
+    plt.legend()
+    plt.show()
+    
+    #return transients
     
     
     
