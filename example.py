@@ -16,7 +16,8 @@ file = voltammetry.open_data("hdcv_excel.xlsx")
 
 current = file.loc[:,270]
 
-voltammetry.analyze_transients(current, 2)
+transients = voltammetry.analyze_transients(current, 0.5)
+print(f'transients: {transients}')
 
 '''
 subtracted = voltammetry.calculate_background_subtraction(file, bg=30)

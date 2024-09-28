@@ -228,14 +228,17 @@ def analyze_transients(array, diff_from_noise=2):
         event, events with amplidute greater than difference will be counted
         as transients (default=2)
         
-        Function fits polynominal to an array to estimate noise level
-        first derivative is used to find extrema
-        then maxima with enough amplitude (see -> diff_from_noise) are stored 
-        to a list
+        Function performs data smoothing for better performance.
+        Then finds peaks using numpy.find_peaks() function.
+        analyze_transients also fitts a polynominal to array and calculates
+        standard deviation to estimate noise level.
+        Finally function checks which peak has amplitude significantly greater
+        than background noise.
         
-        Function draws plot to show which events were counted as transients.
+        analyze_transients draws plot to show which events were counted as transients.
         
-        return list of events counted as transients to further analysis
+        return list of indices from array corresponding to 
+        events counted as transients 
     '''
     
     try: 
@@ -248,100 +251,16 @@ def analyze_transients(array, diff_from_noise=2):
     except:
         raise TypeError("Invalid input - diff_from_noise should be float (or int)")
         
-    '''
-    # first derivative
-    d_array = np.gradient(array)
-    
-    # extrema of a function corresponds to zeros of it's derivative
-    # returns indices from d_array where value == 0
-    zeros = np.where(d_array==0)[0]
-    
-    #######print(f'zeros: {zeros}')
-    
-    # taking values from array with indices from zeros
-    #extrema = array[[zeros]]
-    extrema = array[zeros]
     
     
-    # for local maxima
-    #extrema = argrelextrema(array, np.greater)
-    extrema, _ = find_peaks(array, distance=5)
-    
-    # noise estimation - fitting polynominal to our array
-    # x axis
-    x = range(0,len(array),1)
-    x = np.array(x)
-    
-    # degree of a polynominal
-    degree = 5
-    
-    
-    # fitting coefficients
-    fit = np.polyfit(x, array, degree)
-    # to get fitting from np.plyfit() values
-    noise = np.polyval(fit, x)
-    
-    
-    #noise = savgol_filter(array, window_length=5, polyorder=3)
-    
-    # checking if event is a transient
-    #transients = np.where(extrema>=diff_from_noise*noise.mean())
-    #transients = extrema[[transients]]
-    
-    
-    transients = []
-    
-    for i in range(0,len(extrema),1):
-        
-        event = extrema[i]
-        local_noise = noise[i]
-        
-        if event >= diff_from_noise * local_noise:
-            transients.append(event)
-    
-            
-    print(f't {transients}')
-    
-    # plot
-    plt.figure()
-    
-    # raw array data
-    plt.plot(x,array, noise)
-    
-    # add noise
-    #plt.plot(x,noise(array))
-    
-    # add transient marks
-    #plt.scatter(zeros, transients)
-    
-    
-    # Calculate residuals and standard deviation
-    residuals = array - noise
-    std_dev = np.std(residuals)
-    
-    # Identify events
-    threshold = diff_from_noise * std_dev
-    #events = array > (noise + threshold)
-    
-    transients = []
-    
-    for i in range(0,len(extrema),1):
-        
-        event = extrema[i]
-        local_noise = noise[i]
-        #l_th = threshold[i]
-        
-        if event >= diff_from_noise * (local_noise+threshold):
-            transients.append(event)
-    
-    '''
+   
     
     # smoothing
     array = savgol_filter(array, window_length=10, polyorder=5)
     #array = calculate_moving_average(array)
     #array = np.array(array)
     
-    # find peaks
+    # find peaks in our array
     peaks,_ = find_peaks(array)
     
     
@@ -354,14 +273,12 @@ def analyze_transients(array, diff_from_noise=2):
     coefficients = np.polyfit(x, array, 3)
     fitted_values = np.polyval(coefficients, x)
     
-    # Calculate residuals and standard deviation
+    # Calculate residuals and standard deviation for assesing noise
     residuals = array - fitted_values
     std_dev = np.std(residuals)
     
-    # Identify events
+    # threshold above which peaks will be counted as transients
     threshold = diff_from_noise * std_dev
-    #events = y > (fitted_values + threshold)
-
     
     transients = []
     
@@ -372,20 +289,15 @@ def analyze_transients(array, diff_from_noise=2):
     
     
     # Plotting
-    
-    
     plt.plot(x, array, label='Data')
-    #plt.plot(x, noise, label='3rd-degree fit', color='red')
-    #plt.scatter(x[events], array[events], label='Events', color='green')
-    #plt.scatter(x[transients], array[transients], label='Events', color='green')
-    plt.scatter(peaks, array[peaks], label='Peaks', color='green')
+    #plt.scatter(peaks, array[peaks], label='Peaks', color='green')
     plt.scatter(transients, array[transients], label='Transients', color='red')
     plt.legend()
     plt.show()
     
-    #return transients
+    return transients
     
     
     
     
-#pydoc.writedoc("voltammetry")
+pydoc.writedoc("voltammetry")

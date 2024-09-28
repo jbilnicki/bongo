@@ -20,6 +20,7 @@
 <a href="pandas.html">pandas</a><br>
 </td><td class="multicolumn"><a href="matplotlib.pyplot.html">matplotlib.pyplot</a><br>
 <a href="pydoc.html">pydoc</a><br>
+<a href="scipy.signal.html">scipy.signal</a><br>
 </td><td class="multicolumn"><a href="seaborn.html">seaborn</a><br>
 </td><td class="multicolumn"></td></tr></table></td></tr></table><p>
 <table class="section">
@@ -27,7 +28,25 @@
 <td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Functions</strong></td></tr>
     
 <tr><td class="decor functions-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
-<td class="singlecolumn"><dl><dt><a name="-calculate_background_subtraction"><strong>calculate_background_subtraction</strong></a>(file, bg=0)</dt><dd><span class="code">Subtracts&nbsp;background&nbsp;(default:&nbsp;first&nbsp;row)&nbsp;from&nbsp;all&nbsp;rows&nbsp;in&nbsp;DataFrame</span></dd></dl>
+<td class="singlecolumn"><dl><dt><a name="-analyze_transients"><strong>analyze_transients</strong></a>(array, diff_from_noise=2)</dt><dd><span class="code">Function&nbsp;check&nbsp;number&nbsp;and&nbsp;amplitude&nbsp;of&nbsp;dopamine&nbsp;transients<br>
+&nbsp;<br>
+array&nbsp;-&nbsp;object&nbsp;storing&nbsp;current&nbsp;values&nbsp;from&nbsp;voltammetry&nbsp;(current&nbsp;vs&nbsp;time)<br>
+diff_from_noise&nbsp;(float,&nbsp;default=2)&nbsp;minimal&nbsp;diffrence&nbsp;in&nbsp;amplidude&nbsp;between&nbsp;noise&nbsp;and<br>
+event,&nbsp;events&nbsp;with&nbsp;amplidute&nbsp;greater&nbsp;than&nbsp;difference&nbsp;will&nbsp;be&nbsp;counted<br>
+as&nbsp;transients&nbsp;(default=2)<br>
+&nbsp;<br>
+Function&nbsp;performs&nbsp;data&nbsp;smoothing&nbsp;for&nbsp;better&nbsp;performance.<br>
+Then&nbsp;finds&nbsp;peaks&nbsp;using&nbsp;numpy.find_peaks()&nbsp;function.<br>
+analyze_transients&nbsp;also&nbsp;fitts&nbsp;a&nbsp;polynominal&nbsp;to&nbsp;array&nbsp;and&nbsp;calculates<br>
+standard&nbsp;deviation&nbsp;to&nbsp;estimate&nbsp;noise&nbsp;level.<br>
+Finally&nbsp;function&nbsp;checks&nbsp;which&nbsp;peak&nbsp;has&nbsp;amplitude&nbsp;significantly&nbsp;greater<br>
+than&nbsp;background&nbsp;noise.<br>
+&nbsp;<br>
+analyze_transients&nbsp;draws&nbsp;plot&nbsp;to&nbsp;show&nbsp;which&nbsp;events&nbsp;were&nbsp;counted&nbsp;as&nbsp;transients.<br>
+&nbsp;<br>
+return&nbsp;list&nbsp;of&nbsp;indices&nbsp;from&nbsp;array&nbsp;corresponding&nbsp;to&nbsp;<br>
+events&nbsp;counted&nbsp;as&nbsp;transients</span></dd></dl>
+ <dl><dt><a name="-calculate_background_subtraction"><strong>calculate_background_subtraction</strong></a>(file, bg=0)</dt><dd><span class="code">Subtracts&nbsp;background&nbsp;(default:&nbsp;first&nbsp;row)&nbsp;from&nbsp;all&nbsp;rows&nbsp;in&nbsp;DataFrame</span></dd></dl>
  <dl><dt><a name="-calculate_moving_average"><strong>calculate_moving_average</strong></a>(array, window_size=5)</dt><dd><span class="code">Calculates&nbsp;rolling&nbsp;moving&nbsp;average&nbsp;for&nbsp;reducing&nbsp;noise</span></dd></dl>
  <dl><dt><a name="-calculate_sdbr"><strong>calculate_sdbr</strong></a>(file, bg=0)</dt><dd><span class="code">Combines&nbsp;background&nbsp;subtraction&nbsp;second&nbsp;derivative&nbsp;calculation<br>
 and&nbsp;moving&nbsp;average&nbsp;to&nbsp;perform&nbsp;SDBR&nbsp;on&nbsp;voltamperometric&nbsp;data.<br>
@@ -41,7 +60,8 @@ and&nbsp;tonic&nbsp;(boolean)&nbsp;informs&nbsp;if&nbsp;user&nbsp;wants&nbsp;to&
 returns&nbsp;&nbsp;data&nbsp;as&nbsp;a&nbsp;DataFrame</span></dd></dl>
  <dl><dt><a name="-draw_cv_plot"><strong>draw_cv_plot</strong></a>(transposed_file, time, tonic)</dt><dd><span class="code">Function&nbsp;takes&nbsp;transposed&nbsp;file&nbsp;for&nbsp;creating&nbsp;plot&nbsp;current&nbsp;vs&nbsp;voltage<br>
 &nbsp;<br>
-time&nbsp;argument&nbsp;specifies&nbsp;which&nbsp;column&nbsp;of&nbsp;the&nbsp;DataFrame&nbsp;choose,<br>
+transposed_file&nbsp;-&nbsp;pd.DataFrame<br>
+time&nbsp;(int)&nbsp;argument&nbsp;specifies&nbsp;which&nbsp;column&nbsp;of&nbsp;the&nbsp;DataFrame&nbsp;choose,<br>
 and&nbsp;tonic&nbsp;(boolean)&nbsp;informs&nbsp;if&nbsp;user&nbsp;wants&nbsp;to&nbsp;create&nbsp;plot&nbsp;with&nbsp;row&nbsp;data&nbsp;or&nbsp;after&nbsp;SDBR</span></dd></dl>
  <dl><dt><a name="-draw_heatmap"><strong>draw_heatmap</strong></a>(transposed_file)</dt><dd><span class="code">Creates&nbsp;colorplot&nbsp;-&nbsp;heatmap&nbsp;for&nbsp;whole&nbsp;voltamperometric&nbsp;dataset,<br>
 using&nbsp;seaborn&nbsp;and&nbsp;matplotlib.pyplot<br>
