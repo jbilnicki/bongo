@@ -1,4 +1,4 @@
-# bongo "Bongo Offers Neuroscientific Graphs and Outputs" is a python module for analysis of  basic neuroscientific data.
+# bongo "Bongo Offers Neuroscientific Graphs and Outputs" is a python package for analysis of  basic neuroscientific data.
 Author: Jakub Bilnicki
 Language: Python 3.11.7
 It is based mainly on: Pandas, NumPy, matplotlib.pyplot, openCV, seaborn 
