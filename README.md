@@ -10,7 +10,7 @@ bongo contains submodules for:
   -fast-scan cyclic voltammetry
 
 Acknowledgments: bongo.neuroanatomy uses images from "The Rat Brain in Stereotactic Coordinates" 5th Edition by George Paxinos and Charles Watson 
-coordinates from bregma can are accesed from files' names.
+coordinates from bregma can be accesed from files' names.
 
 
 Warning: bongo is still under active development.
