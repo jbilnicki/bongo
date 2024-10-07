@@ -137,6 +137,8 @@ def draw_ct_plot(transposed_file, volt, tonic):
     ''' Function takes transposed file for creating plot current vs time
     
     volt (int) argument specifies which row of the DataFrame choose,
+    It should be integer from 0 to 849 as it describes index of a row
+    that corresponds to our desired voltage value'
     and tonic (boolean) informs if user wants to create plot with row data or after SDBR
     returns  data as a DataFrame'''
 
@@ -177,6 +179,7 @@ def draw_cv_plot(transposed_file, time, tonic):
     
     transposed_file - pd.DataFrame
     time (int) argument specifies which column of the DataFrame choose,
+    there are 10 voltammograms for each second - and each column stores one voltammogram
     and tonic (boolean) informs if user wants to create plot with row data or after SDBR'''
 
     # checking if DataFrame is transposed in a proper manner

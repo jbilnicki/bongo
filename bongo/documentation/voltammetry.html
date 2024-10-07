@@ -8,7 +8,7 @@
 <table class="heading">
 <tr class="heading-text decor">
 <td class="title">&nbsp;<br><strong class="title">voltammetry</strong></td>
-<td class="extra"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Cmsi%5Cdesktop%5Cstudia%5Cbongo%5Cvoltammetry.py">c:\users\msi\desktop\studia\bongo\voltammetry.py</a></td></tr></table>
+<td class="extra"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Cmsi%5Cdesktop%5Cstudia%5Cbongo%5Cbongo%5Cvoltammetry.py">c:\users\msi\desktop\studia\bongo\bongo\voltammetry.py</a></td></tr></table>
     <p><span class="code">#&nbsp;-*-&nbsp;coding:&nbsp;utf-8&nbsp;-*-</span></p>
 <p>
 <table class="section">
@@ -20,7 +20,6 @@
 <a href="pandas.html">pandas</a><br>
 </td><td class="multicolumn"><a href="matplotlib.pyplot.html">matplotlib.pyplot</a><br>
 <a href="pydoc.html">pydoc</a><br>
-<a href="scipy.signal.html">scipy.signal</a><br>
 </td><td class="multicolumn"><a href="seaborn.html">seaborn</a><br>
 </td><td class="multicolumn"></td></tr></table></td></tr></table><p>
 <table class="section">
@@ -56,12 +55,15 @@ default&nbsp;=&nbsp;0</span></dd></dl>
  <dl><dt><a name="-draw_ct_plot"><strong>draw_ct_plot</strong></a>(transposed_file, volt, tonic)</dt><dd><span class="code">Function&nbsp;takes&nbsp;transposed&nbsp;file&nbsp;for&nbsp;creating&nbsp;plot&nbsp;current&nbsp;vs&nbsp;time<br>
 &nbsp;<br>
 volt&nbsp;(int)&nbsp;argument&nbsp;specifies&nbsp;which&nbsp;row&nbsp;of&nbsp;the&nbsp;DataFrame&nbsp;choose,<br>
+It&nbsp;should&nbsp;be&nbsp;integer&nbsp;from&nbsp;0&nbsp;to&nbsp;849&nbsp;as&nbsp;it&nbsp;describes&nbsp;index&nbsp;of&nbsp;a&nbsp;row<br>
+that&nbsp;corresponds&nbsp;to&nbsp;our&nbsp;desired&nbsp;voltage&nbsp;value'<br>
 and&nbsp;tonic&nbsp;(boolean)&nbsp;informs&nbsp;if&nbsp;user&nbsp;wants&nbsp;to&nbsp;create&nbsp;plot&nbsp;with&nbsp;row&nbsp;data&nbsp;or&nbsp;after&nbsp;SDBR<br>
 returns&nbsp;&nbsp;data&nbsp;as&nbsp;a&nbsp;DataFrame</span></dd></dl>
  <dl><dt><a name="-draw_cv_plot"><strong>draw_cv_plot</strong></a>(transposed_file, time, tonic)</dt><dd><span class="code">Function&nbsp;takes&nbsp;transposed&nbsp;file&nbsp;for&nbsp;creating&nbsp;plot&nbsp;current&nbsp;vs&nbsp;voltage<br>
 &nbsp;<br>
 transposed_file&nbsp;-&nbsp;pd.DataFrame<br>
 time&nbsp;(int)&nbsp;argument&nbsp;specifies&nbsp;which&nbsp;column&nbsp;of&nbsp;the&nbsp;DataFrame&nbsp;choose,<br>
+there&nbsp;are&nbsp;10&nbsp;voltammograms&nbsp;for&nbsp;each&nbsp;second&nbsp;-&nbsp;and&nbsp;each&nbsp;column&nbsp;stores&nbsp;one&nbsp;voltammogram<br>
 and&nbsp;tonic&nbsp;(boolean)&nbsp;informs&nbsp;if&nbsp;user&nbsp;wants&nbsp;to&nbsp;create&nbsp;plot&nbsp;with&nbsp;row&nbsp;data&nbsp;or&nbsp;after&nbsp;SDBR</span></dd></dl>
  <dl><dt><a name="-draw_heatmap"><strong>draw_heatmap</strong></a>(transposed_file)</dt><dd><span class="code">Creates&nbsp;colorplot&nbsp;-&nbsp;heatmap&nbsp;for&nbsp;whole&nbsp;voltamperometric&nbsp;dataset,<br>
 using&nbsp;seaborn&nbsp;and&nbsp;matplotlib.pyplot<br>
