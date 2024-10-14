@@ -11,6 +11,7 @@ setup(
         url='https://github.com/jbilnicki/bongo.git',
         description=DESCRIPTION,
         packages=find_packages(),
+	include_package_data=True,
         install_requires=[
         'numpy', 'pandas', 'matplotlib', 'seaborn', 'opencv-python','scipy'
         ],
