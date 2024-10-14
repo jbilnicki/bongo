@@ -12,6 +12,7 @@ setup(
         description=DESCRIPTION,
         packages=find_packages(),
         include_package_data=True,
+        package_data={'bongo': ['bongo/img/*'],},
         install_requires=[
         'numpy', 'pandas', 'matplotlib', 'seaborn', 'opencv-python','scipy'
         ],
