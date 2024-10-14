@@ -134,4 +134,4 @@ class Detector():
         plt.ylim(0,height)
         plt.gca().invert_yaxis()
         
-pydoc.writedoc("behaviour")
+#pydoc.writedoc("behaviour")

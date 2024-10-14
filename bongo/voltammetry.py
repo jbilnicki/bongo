@@ -303,4 +303,4 @@ def analyze_transients(array, diff_from_noise=2):
     
     
     
-pydoc.writedoc("voltammetry")
+#pydoc.writedoc("voltammetry")
