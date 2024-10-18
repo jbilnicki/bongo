@@ -27,12 +27,15 @@
 <td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Functions</strong></td></tr>
     
 <tr><td class="decor functions-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
-<td class="singlecolumn"><dl><dt><a name="-analyze_transients"><strong>analyze_transients</strong></a>(array, diff_from_noise=2)</dt><dd><span class="code">Function&nbsp;check&nbsp;number&nbsp;and&nbsp;amplitude&nbsp;of&nbsp;dopamine&nbsp;transients<br>
+<td class="singlecolumn"><dl><dt><a name="-analyze_transients"><strong>analyze_transients</strong></a>(array, diff_from_noise=2, window=10, order=3)</dt><dd><span class="code">Function&nbsp;check&nbsp;number&nbsp;and&nbsp;amplitude&nbsp;of&nbsp;dopamine&nbsp;transients<br>
 &nbsp;<br>
 array&nbsp;-&nbsp;object&nbsp;storing&nbsp;current&nbsp;values&nbsp;from&nbsp;voltammetry&nbsp;(current&nbsp;vs&nbsp;time)<br>
 diff_from_noise&nbsp;(float,&nbsp;default=2)&nbsp;minimal&nbsp;diffrence&nbsp;in&nbsp;amplidude&nbsp;between&nbsp;noise&nbsp;and<br>
 event,&nbsp;events&nbsp;with&nbsp;amplidute&nbsp;greater&nbsp;than&nbsp;difference&nbsp;will&nbsp;be&nbsp;counted<br>
 as&nbsp;transients&nbsp;(default=2)<br>
+window&nbsp;(int,&nbsp;default=10)&nbsp;length&nbsp;of&nbsp;window&nbsp;for&nbsp;smoothing<br>
+with&nbsp;savitzky-golay&nbsp;filter<br>
+order&nbsp;(int,&nbsp;default=3)&nbsp;order&nbsp;of&nbsp;fitted&nbsp;polynominal<br>
 &nbsp;<br>
 Function&nbsp;performs&nbsp;data&nbsp;smoothing&nbsp;for&nbsp;better&nbsp;performance.<br>
 Then&nbsp;finds&nbsp;peaks&nbsp;using&nbsp;numpy.find_peaks()&nbsp;function.<br>
