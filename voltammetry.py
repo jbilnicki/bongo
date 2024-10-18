@@ -220,13 +220,16 @@ def draw_cv_plot(transposed_file, time, tonic):
 
 
 
-def analyze_transients(array, diff_from_noise=2):
+def analyze_transients(array, diff_from_noise=2, window=10, order=3):
     '''Function check number and amplitude of dopamine transients
         
         array - object storing current values from voltammetry (current vs time)
         diff_from_noise (float, default=2) minimal diffrence in amplidude between noise and
         event, events with amplidute greater than difference will be counted
         as transients (default=2)
+        window (int, default=10) length of window for smoothing
+        with savitzky-golay filter
+        order (int, default=3) order of fitted polynominal
         
         Function performs data smoothing for better performance.
         Then finds peaks using numpy.find_peaks() function.
@@ -256,7 +259,7 @@ def analyze_transients(array, diff_from_noise=2):
    
     
     # smoothing
-    array = savgol_filter(array, window_length=10, polyorder=5)
+    array = savgol_filter(array, window_length=window, polyorder=5)
     #array = calculate_moving_average(array)
     #array = np.array(array)
     
@@ -270,7 +273,7 @@ def analyze_transients(array, diff_from_noise=2):
     
     
     # Fit a 3rd-degree polynomial
-    coefficients = np.polyfit(x, array, 3)
+    coefficients = np.polyfit(x, array, order)
     fitted_values = np.polyval(coefficients, x)
     
     # Calculate residuals and standard deviation for assesing noise
@@ -291,6 +294,7 @@ def analyze_transients(array, diff_from_noise=2):
     # Plotting
     plt.plot(x, array, label='Data')
     #plt.scatter(peaks, array[peaks], label='Peaks', color='green')
+    plt.plot(x, fitted_values, label='Fit', color='green')
     plt.scatter(transients, array[transients], label='Transients', color='red')
     plt.legend()
     plt.show()
@@ -300,4 +304,4 @@ def analyze_transients(array, diff_from_noise=2):
     
     
     
-pydoc.writedoc("voltammetry")
+#pydoc.writedoc("voltammetry")
