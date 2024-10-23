@@ -106,13 +106,3 @@ def normalize_auc(array):
     return auc
 
 
-file = open_file("~/Desktop/example.csv")
-
-cs_1 = file["DeltaF/F-1"]
-
-peak = normalize_peak(cs_1)
-
-print(f'Normalized value of your peak is: {peak}')
-
-auc = normalize_auc(cs_1)
-print(auc)
