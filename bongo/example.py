@@ -15,6 +15,14 @@ import photometry
 
 file = photometry.open_file("~/Desktop/example.csv")
 
+cs_1 = file[f'DeltaF/F-4']
+plt.plot(cs_1)
+
+z_score = photometry.calculate_z_score(cs_1)
+#print(z_score)
+plt.plot(z_score, color='red')
+
+'''
 mean = []
 for i in range(1,10):
     
@@ -39,7 +47,7 @@ for i in range(1,10):
 mean = np.array(mean)
 m = np.mean(mean)
 print(f'mean: {m}')
-
+'''
 
 '''
 file = voltammetry.open_data("hdcv_excel.xlsx")

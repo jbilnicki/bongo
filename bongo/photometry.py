@@ -180,6 +180,9 @@ def calculate_z_score(array):
     except:
         raise TypeError("Can't convert your data to numpy.array")
         
+    
+    # drop nan values for z score calculating algorithm to work properly
+    array = array[~np.isnan(array)]
     z_array = zscore(array)
     
     return z_array
