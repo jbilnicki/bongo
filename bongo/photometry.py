@@ -1,5 +1,6 @@
 from scipy.signal import find_peaks
 from scipy.integrate import simpson
+from scipy.stats import zscore
 from scipy.stats import mannwhitneyu
 import numpy as np
 import pandas as pd
@@ -164,4 +165,21 @@ def normalize_auc(array, base_length=5, row_duration=50, event_length=5):
     
     return event_auc, normalized_auc
 
+def calculate_z_score(array):
+    
+    ''' function that uses scipy.stats zscore to calculte array of z-score for 
+    our photometry data
+    
+    array - array-like with fluorescence data
+    
+    return z_array - array-like with standarized values'''
 
+
+    try: 
+        array = np.array(array)
+    except:
+        raise TypeError("Can't convert your data to numpy.array")
+        
+    z_array = zscore(array)
+    
+    return z_array
