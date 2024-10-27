@@ -5,6 +5,7 @@ from scipy.stats import mannwhitneyu
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import pydoc
 
 
 def open_file(path, n_cs=10):
@@ -186,3 +187,5 @@ def calculate_z_score(array):
     z_array = zscore(array)
     
     return z_array
+
+#pydoc.writedoc("photometry")
