@@ -8,7 +8,7 @@ is a python module for analysis of basic neuroscientific data.
 """
 
 
-__version__ = "1.0"
+__version__ = "1.1"
 __author__ = "Jakub Bilnicki"
 
 from . import behaviour

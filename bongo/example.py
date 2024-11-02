@@ -7,11 +7,49 @@ Created on Sat Sep 21 10:07:02 2024
 
 
 
-#import matplotlib.pyplot as plt
-import voltammetry
+import matplotlib.pyplot as plt
+#import voltammetry
 
+import numpy as np
+import photometry
 
+file = photometry.open_file("~/Desktop/example.csv")
 
+cs_1 = file[f'DeltaF/F-4']
+plt.plot(cs_1)
+
+z_score = photometry.calculate_z_score(cs_1)
+#print(z_score)
+plt.plot(z_score, color='red')
+
+'''
+mean = []
+for i in range(1,10):
+    
+    cs_1 = file[f"DeltaF/F-{i}"]
+    
+    print("-------------------------------------------------")
+    print(f"DeltaF/F-{i}")
+    
+    plt.figure()
+    plt.title(f"DeltaF/F-{i}")
+    peak = photometry.normalize_peak(cs_1)
+    
+    print(f'Normalized value of your peak is: {peak}')
+    
+    plt.figure()
+    plt.title(f"DeltaF/F-{i}")
+    auc, normalized_auc = photometry.normalize_auc(cs_1)
+    print(f'row auc: {auc}')
+    print(f'normalized auc: {normalized_auc}')
+    mean.append(peak)
+    
+mean = np.array(mean)
+m = np.mean(mean)
+print(f'mean: {m}')
+'''
+
+'''
 file = voltammetry.open_data("hdcv_excel.xlsx")
 
 current = file.loc[:,270]
@@ -19,7 +57,7 @@ current = file.loc[:,270]
 transients = voltammetry.analyze_transients(current, 0.5, 50, 4)
 print(f'transients: {transients}')
 
-'''
+
 subtracted = voltammetry.calculate_background_subtraction(file, bg=30)
 
 

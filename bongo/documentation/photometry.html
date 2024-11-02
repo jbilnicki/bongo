@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Python: module photometry</title>
+</head><body>
+
+<table class="heading">
+<tr class="heading-text decor">
+<td class="title">&nbsp;<br><strong class="title">photometry</strong></td>
+<td class="extra"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Cmsi%5Cdesktop%5Cstudia%5Cbongo%5Cbongo%5Cphotometry.py">c:\users\msi\desktop\studia\bongo\bongo\photometry.py</a></td></tr></table>
+    <p></p>
+<p>
+<table class="section">
+<tr class="decor pkg-content-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Modules</strong></td></tr>
+    
+<tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><table><tr><td class="multicolumn"><a href="numpy.html">numpy</a><br>
+</td><td class="multicolumn"><a href="pandas.html">pandas</a><br>
+</td><td class="multicolumn"><a href="matplotlib.pyplot.html">matplotlib.pyplot</a><br>
+</td><td class="multicolumn"><a href="pydoc.html">pydoc</a><br>
+</td></tr></table></td></tr></table><p>
+<table class="section">
+<tr class="decor functions-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Functions</strong></td></tr>
+    
+<tr><td class="decor functions-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
+<td class="singlecolumn"><dl><dt><a name="-calculate_z_score"><strong>calculate_z_score</strong></a>(array)</dt><dd><span class="code">function&nbsp;that&nbsp;uses&nbsp;scipy.stats&nbsp;zscore&nbsp;to&nbsp;calculte&nbsp;array&nbsp;of&nbsp;z-score&nbsp;for&nbsp;<br>
+our&nbsp;photometry&nbsp;data<br>
+&nbsp;<br>
+array&nbsp;-&nbsp;array-like&nbsp;with&nbsp;fluorescence&nbsp;data<br>
+&nbsp;<br>
+return&nbsp;z_array&nbsp;-&nbsp;array-like&nbsp;with&nbsp;standarized&nbsp;values</span></dd></dl>
+ <dl><dt><a name="-normalize_auc"><strong>normalize_auc</strong></a>(array, base_length=5, row_duration=50, event_length=5)</dt><dd><span class="code">function&nbsp;calculates&nbsp;area&nbsp;under&nbsp;curve&nbsp;for&nbsp;peak&nbsp;in&nbsp;fluorescence&nbsp;and&nbsp;normalize&nbsp;it&nbsp;to&nbsp;the&nbsp;background<br>
+&nbsp;<br>
+array&nbsp;-&nbsp;array-like&nbsp;object&nbsp;with&nbsp;fluorescence&nbsp;data<br>
+base_length&nbsp;-&nbsp;float&nbsp;number&nbsp;of&nbsp;seconds&nbsp;prioror&nbsp;to&nbsp;our&nbsp;event&nbsp;that&nbsp;will&nbsp;be&nbsp;counted&nbsp;as&nbsp;a&nbsp;baseline<br>
+row_duration&nbsp;(int&nbsp;default=50)&nbsp;what&nbsp;is&nbsp;difference&nbsp;in&nbsp;time&nbsp;from&nbsp;one&nbsp;row&nbsp;to&nbsp;the&nbsp;other&nbsp;(in&nbsp;miliseconds)<br>
+event_length&nbsp;(float&nbsp;default=5)&nbsp;number&nbsp;of&nbsp;seconds&nbsp;after&nbsp;the&nbsp;baseline<br>
+for&nbsp;which&nbsp;area&nbsp;under&nbsp;the&nbsp;curve&nbsp;will&nbsp;be&nbsp;calculated<br>
+&nbsp;<br>
+then&nbsp;function&nbsp;plots&nbsp;results<br>
+&nbsp;<br>
+return&nbsp;event_auc&nbsp;-&nbsp;float&nbsp;value&nbsp;of&nbsp;area&nbsp;under&nbsp;curve&nbsp;for&nbsp;given&nbsp;by&nbsp;event_length&nbsp;period,&nbsp;<br>
+standarized_auc&nbsp;-&nbsp;float&nbsp;value&nbsp;of&nbsp;area&nbsp;under&nbsp;curve&nbsp;for&nbsp;given&nbsp;by&nbsp;event_length&nbsp;period&nbsp;<br>
+normalized&nbsp;with&nbsp;baseline&nbsp;mean&nbsp;value</span></dd></dl>
+ <dl><dt><a name="-normalize_peak"><strong>normalize_peak</strong></a>(array, base_length=5, row_duration=50, event_length=6)</dt><dd><span class="code">function&nbsp;for&nbsp;assesing&nbsp;percentage&nbsp;of&nbsp;change&nbsp;in&nbsp;fluorescence&nbsp;during&nbsp;some&nbsp;event<br>
+&nbsp;<br>
+array&nbsp;-&nbsp;array-like&nbsp;object&nbsp;with&nbsp;data&nbsp;from&nbsp;specigic&nbsp;event<br>
+base_length&nbsp;-&nbsp;float&nbsp;number&nbsp;of&nbsp;seconds&nbsp;prioror&nbsp;to&nbsp;our&nbsp;event&nbsp;that&nbsp;will&nbsp;be&nbsp;counted&nbsp;as&nbsp;a&nbsp;baseline<br>
+row_duration&nbsp;(int&nbsp;default=50)&nbsp;what&nbsp;is&nbsp;difference&nbsp;in&nbsp;time&nbsp;from&nbsp;one&nbsp;row&nbsp;to&nbsp;the&nbsp;other&nbsp;(in&nbsp;miliseconds)<br>
+event_length&nbsp;(float&nbsp;default=5)&nbsp;number&nbsp;of&nbsp;seconds&nbsp;after&nbsp;the&nbsp;baseline<br>
+for&nbsp;which&nbsp;maximal&nbsp;peak&nbsp;will&nbsp;be&nbsp;found<br>
+&nbsp;<br>
+then&nbsp;function&nbsp;plots&nbsp;results<br>
+&nbsp;<br>
+return&nbsp;normalised_peak&nbsp;-&nbsp;value&nbsp;of&nbsp;fluorescence&nbsp;in&nbsp;a&nbsp;maximal&nbsp;peak&nbsp;normalised&nbsp;to&nbsp;the&nbsp;baseline</span></dd></dl>
+ <dl><dt><a name="-open_file"><strong>open_file</strong></a>(path, n_cs=10)</dt><dd><span class="code">function&nbsp;opens&nbsp;.csv&nbsp;file&nbsp;with&nbsp;photometry&nbsp;data<br>
+and&nbsp;extracts&nbsp;necessary&nbsp;collumns<br>
+&nbsp;<br>
+path&nbsp;-&nbsp;path&nbsp;to&nbsp;a&nbsp;csv&nbsp;file<br>
+n_cs&nbsp;(int,&nbsp;default=10)&nbsp;number&nbsp;of&nbsp;CS&nbsp;witch&nbsp;correspond&nbsp;to&nbsp;number&nbsp;of&nbsp;collumns&nbsp;we&nbsp;need<br>
+&nbsp;<br>
+return&nbsp;pandas&nbsp;DataFrame&nbsp;with&nbsp;selected&nbsp;values</span></dd></dl>
+ <dl><dt><a name="-set_baseline"><strong>set_baseline</strong></a>(array, base_length=5, row_duration=50)</dt><dd><span class="code">function&nbsp;for&nbsp;dividing&nbsp;array&nbsp;into&nbsp;baseline&nbsp;and&nbsp;values&nbsp;after&nbsp;treatment/event<br>
+&nbsp;<br>
+array&nbsp;-&nbsp;array-like&nbsp;object&nbsp;with&nbsp;data&nbsp;from&nbsp;specigic&nbsp;event<br>
+base_length&nbsp;-&nbsp;float&nbsp;number&nbsp;of&nbsp;seconds&nbsp;prioror&nbsp;to&nbsp;our&nbsp;event&nbsp;that&nbsp;will&nbsp;be&nbsp;counted&nbsp;as&nbsp;a&nbsp;baseline<br>
+row_duration&nbsp;(int&nbsp;default=50)&nbsp;what&nbsp;is&nbsp;difference&nbsp;in&nbsp;time&nbsp;from&nbsp;one&nbsp;row&nbsp;to&nbsp;the&nbsp;other&nbsp;(in&nbsp;miliseconds)<br>
+&nbsp;<br>
+return&nbsp;base&nbsp;-&nbsp;array&nbsp;with&nbsp;values&nbsp;for&nbsp;baseline,&nbsp;base_end&nbsp;-&nbsp;index&nbsp;of&nbsp;the&nbsp;last&nbsp;baseline&nbsp;value</span></dd></dl>
+</td></tr></table>
+</body></html>
