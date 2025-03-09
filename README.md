@@ -13,6 +13,8 @@ bongo contains submodules for:
 Acknowledgments: bongo.neuroanatomy uses images from "The Rat Brain in Stereotactic Coordinates" 5th Edition (2004) by George Paxinos and Charles Watson 
 coordinates from bregma can be accesed from files' names.
 
+How to use:
+In bongo subdirectory there is a file example.py with some usefull code snippts.
 
 Currenly:
 behaviour contains class Detector for simple tracking animal movements e.g. in open field paradigm;
