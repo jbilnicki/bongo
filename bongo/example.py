@@ -54,7 +54,7 @@ file = voltammetry.open_data("hdcv_excel.xlsx")
 
 current = file.loc[:,270]
 
-transients = voltammetry.analyze_transients(current, 0.5, 50, 4)
+transients, smoothed_values = voltammetry.analyze_transients(current, 0.5, 50, 4)
 print(f'transients: {transients}')
 
 

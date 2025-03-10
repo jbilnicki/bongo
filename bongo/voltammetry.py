@@ -245,6 +245,7 @@ def analyze_transients(array, diff_from_noise=2, window=10, order=3):
         
         return list of indices from array corresponding to 
         events counted as transients 
+        and smoothed array
     '''
     
     try: 
@@ -302,7 +303,9 @@ def analyze_transients(array, diff_from_noise=2, window=10, order=3):
     plt.legend()
     plt.show()
     
-    return transients
+    # return also an array so that user can display new smoothed values 
+    # and not row values 
+    return transients, array 
     
     
     
