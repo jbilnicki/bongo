@@ -304,7 +304,7 @@ def analyze_transients(array, diff_from_noise=2, window=10, order=3):
     plt.show()
     
     # return also an array so that user can display new smoothed values 
-    # and not row values 
+    # and not raw values 
     return transients, array 
     
     
