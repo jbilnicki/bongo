@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '1.1'
+VERSION = '1.2'
 DESCRIPTION = "Bongo Offers Neuroscientific Graphs and Outputs"
 
 setup(
@@ -14,7 +14,7 @@ setup(
         include_package_data=True,
         package_data={'bongo': ['bongo/img/*'],},
         install_requires=[
-        'numpy', 'pandas', 'matplotlib', 'seaborn', 'opencv-python','scipy'
+        'numpy', 'pandas', 'matplotlib', 'seaborn', 'opencv-python','scipy', 're', 'datetime'
         ],
         
         keywords=['python', 'voltammertry', 'neuroanatomy'],
