@@ -2,7 +2,7 @@
 
 ![logo](./logo.ico)  
 
-Author: Jakub Bilnicki
+Author: Jakub Bilnicki  
 Version: 1.2  
 Language: Python 3.11.7  
 It is based mainly on: Pandas, NumPy, matplotlib.pyplot, openCV, seaborn 
