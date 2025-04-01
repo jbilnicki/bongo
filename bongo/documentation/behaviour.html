@@ -8,7 +8,7 @@
 <table class="heading">
 <tr class="heading-text decor">
 <td class="title">&nbsp;<br><strong class="title">behaviour</strong></td>
-<td class="extra"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Cmsi%5Cdesktop%5Cstudia%5Cbongo%5Cbehaviour.py">c:\users\msi\desktop\studia\bongo\behaviour.py</a></td></tr></table>
+<td class="extra"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Cmsi%5Cdesktop%5Cstudia%5Cbongo%5Cbongo%5Cbehaviour.py">c:\users\msi\desktop\studia\bongo\bongo\behaviour.py</a></td></tr></table>
     <p><span class="code">#&nbsp;-*-&nbsp;coding:&nbsp;utf-8&nbsp;-*-</span></p>
 <p>
 <table class="section">
@@ -17,10 +17,11 @@
     
 <tr><td class="decor pkg-content-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
 <td class="singlecolumn"><table><tr><td class="multicolumn"><a href="cv2.html">cv2</a><br>
-</td><td class="multicolumn"><a href="pandas.html">pandas</a><br>
+<a href="pandas.html">pandas</a><br>
 </td><td class="multicolumn"><a href="matplotlib.pyplot.html">matplotlib.pyplot</a><br>
-</td><td class="multicolumn"><a href="pydoc.html">pydoc</a><br>
-</td></tr></table></td></tr></table><p>
+<a href="pydoc.html">pydoc</a><br>
+</td><td class="multicolumn"><a href="re.html">re</a><br>
+</td><td class="multicolumn"></td></tr></table></td></tr></table><p>
 <table class="section">
 <tr class="decor index-decor heading-text">
 <td class="section-title" colspan=3>&nbsp;<br><strong class="bigsection">Classes</strong></td></tr>
@@ -31,6 +32,7 @@
 </dt><dd>
 <dl>
 <dt class="heading-text"><a href="behaviour.html#Detector">Detector</a>
+</dt><dt class="heading-text"><a href="behaviour.html#Med_PC_Data_Extractor">Med_PC_Data_Extractor</a>
 </dt></dl>
 </dd>
 </dl>
@@ -62,6 +64,37 @@ default&nbsp;120</span></dd></dl>
 detections_df&nbsp;-&nbsp;pd.DataFrame&nbsp;with&nbsp;coordinates&nbsp;of&nbsp;the&nbsp;animal's&nbsp;centroid<br>
 height,&nbsp;width&nbsp;-&nbsp;int,&nbsp;&nbsp;size&nbsp;of&nbsp;the&nbsp;frame&nbsp;from&nbsp;video,&nbsp;plot&nbsp;will&nbsp;be&nbsp;scaled<br>
 in&nbsp;a&nbsp;proper&nbsp;manner</span></dd></dl>
+
+<hr>
+Data descriptors defined here:<br>
+<dl><dt><strong>__dict__</strong></dt>
+<dd><span class="code">dictionary&nbsp;for&nbsp;instance&nbsp;variables</span></dd>
+</dl>
+<dl><dt><strong>__weakref__</strong></dt>
+<dd><span class="code">list&nbsp;of&nbsp;weak&nbsp;references&nbsp;to&nbsp;the&nbsp;object</span></dd>
+</dl>
+</td></tr></table> <p>
+<table class="section">
+<tr class="decor title-decor heading-text">
+<td class="section-title" colspan=3>&nbsp;<br><a name="Med_PC_Data_Extractor">class <strong>Med_PC_Data_Extractor</strong></a>(<a href="builtins.html#object">builtins.object</a>)</td></tr>
+    
+<tr><td class="decor title-decor" rowspan=2><span class="code">&nbsp;&nbsp;&nbsp;</span></td>
+<td class="decor title-decor" colspan=2><span class="code"><a href="#Med_PC_Data_Extractor">Med_PC_Data_Extractor</a>(file)<br>
+&nbsp;<br>
+Class&nbsp;for&nbsp;extracting&nbsp;data&nbsp;about&nbsp;infusion&nbsp;number,&nbsp;active/inactive&nbsp;lever&nbsp;presses&nbsp;and&nbsp;time&nbsp;spent&nbsp;by&nbsp;rat&nbsp;in&nbsp;Skinner&nbsp;box<br>
+class&nbsp;takes&nbsp;as&nbsp;a&nbsp;source&nbsp;file&nbsp;generated&nbsp;by&nbsp;Med-PC&nbsp;IV&nbsp;software&nbsp;<br>
+&nbsp;<br>
+please&nbsp;be&nbsp;aware&nbsp;that&nbsp;this&nbsp;script&nbsp;is&nbsp;suited&nbsp;for&nbsp;very&nbsp;specific&nbsp;use&nbsp;case&nbsp;-&nbsp;analysis&nbsp;of&nbsp;lever&nbsp;presses&nbsp;in&nbsp;6&nbsp;hours&nbsp;oxycodone&nbsp;seeking&nbsp;rats.<br>
+For&nbsp;analysis&nbsp;of&nbsp;different&nbsp;data&nbsp;changes&nbsp;in&nbsp;script&nbsp;(especially&nbsp;regular&nbsp;expressions)&nbsp;might&nbsp;be&nbsp;necessary<br>&nbsp;</span></td></tr>
+<tr><td>&nbsp;</td>
+<td class="singlecolumn">Methods defined here:<br>
+<dl><dt><a name="Med_PC_Data_Extractor-__init__"><strong>__init__</strong></a>(self, file)</dt><dd><span class="code">file&nbsp;(string)&nbsp;-&nbsp;path&nbsp;to&nbsp;the&nbsp;file&nbsp;with&nbsp;raw&nbsp;data&nbsp;from&nbsp;MED-PC&nbsp;IV</span></dd></dl>
+
+<dl><dt><a name="Med_PC_Data_Extractor-extract_data"><strong>extract_data</strong></a>(self, data)</dt><dd><span class="code">function&nbsp;for&nbsp;extracting&nbsp;data&nbsp;from&nbsp;file&nbsp;in&nbsp;a&nbsp;proper&nbsp;manner</span></dd></dl>
+
+<dl><dt><a name="Med_PC_Data_Extractor-find_sequence"><strong>find_sequence</strong></a>(self, content, index, column, st)</dt><dd><span class="code">find&nbsp;sequence&nbsp;starting&nbsp;from&nbsp;desired&nbsp;string&nbsp;and&nbsp;save&nbsp;it&nbsp;to&nbsp;proper&nbsp;row&nbsp;and&nbsp;column&nbsp;of&nbsp;DataFrame</span></dd></dl>
+
+<dl><dt><a name="Med_PC_Data_Extractor-time_to_seconds"><strong>time_to_seconds</strong></a>(self, time_str)</dt><dd><span class="code">function&nbsp;takes&nbsp;time&nbsp;in&nbsp;format&nbsp;of&nbsp;h:min:s&nbsp;and&nbsp;converts&nbsp;it&nbsp;to&nbsp;value&nbsp;in&nbsp;seconds</span></dd></dl>
 
 <hr>
 Data descriptors defined here:<br>
