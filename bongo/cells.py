@@ -1,5 +1,7 @@
 import cv2
 import numpy as np
+import pydoc
+
 
 def count_cells(image, best_channel="green", threshold=200, min_size=50, display=True) -> int:
     ''' function binarizing microscope image and counting cells based on contrast
@@ -114,3 +116,5 @@ def count_cells(image, best_channel="green", threshold=200, min_size=50, display
 
     # return number of cells
     return n_cells
+
+#pydoc.writedoc("cells")
