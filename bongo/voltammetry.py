@@ -7,37 +7,50 @@ import pandas as pd
 from scipy.signal import savgol_filter
 #from scipy.signal import argrelextrema
 from scipy.signal import find_peaks
-import pydoc
+#import pydoc
 
 
 def open_data(path):
-    ''' function reads data from excel or csv file and creates pd.DataFrame.
-    path (string)'''
+    ''' Function reads data from excel or csv file and creates pd.DataFrame.
+    parameters:
+        path - string - path to .xlsx or .csv file containing voltametric data from HDCV software
+    returns:
+        dataset - pd.DataFrame with 
+        '''
     
     if path.endswith(".xlsx"):
-        file = pd.read_excel(path, header=None, engine='openpyxl')
+        dataset = pd.read_excel(path, header=None, engine='openpyxl')
         
     elif path.endswith(".csv") or path.endswith(".txt"):
-        file = pd.read_csv(path, sep="\t", header=None)
-        file = file.T
+        dataset = pd.read_csv(path, sep="\t", header=None)
+        dataset = dataset.T
         
-    return file
+    return dataset
         
     
-def calculate_background_subtraction(file, bg=0):
-    ''' Subtracts background (default: first row) from all rows in DataFrame'''
+def calculate_background_subtraction(dataset, bg=0):
+    ''' Subtracts background (default: first row) from all rows in DataFrame
+    parameters:
+        dataset - pd.DataFrame with voltametric data
+        bg - int - index of row that will be subtracted from the rest of data
+    returns:
+        bs - pd.DataFrame after background subtraction
+    '''
     
-    bs = file.apply(lambda row: row-file.iloc[bg], axis=1)
+    bs = dataset.apply(lambda row: row-dataset.iloc[bg], axis=1)
     return bs
 
-def sdbr(current, voltage):
-    ''' function reduces noise 
-    and calculates second derivative using savitzky-golay filter
-    takes two arguments: current i voltage'''
-    
-    window_length = 50
-    polyorder = 3
-    deriv = 2
+def sdbr(current, window_length=50, polyorder=3,deriv=2):
+    ''' function reduces noise and calculates second derivative using savitzky-golay filter
+    parameters:
+        current - array with data from single voltammogram
+        window_length -int, default=50 - length of window for smoothing
+        with savitzky-golay filter
+        polyorder - int, default=3 - order of fitted polynominal
+        deriv - int, default=2 - order of derivative calculated for current 
+    returns:
+        sd - array - data for current after smoothing and calculating derivative
+        '''
     
     sd = savgol_filter(x=current, window_length=window_length, polyorder=polyorder, deriv=deriv)
     
@@ -49,7 +62,13 @@ def sdbr(current, voltage):
 
 
 def calculate_moving_average(array,window_size=5):
-    '''Calculates rolling moving average for reducing noise'''
+    '''Calculates rolling moving average for reducing noise
+    parameters:
+        array - our dataset
+        window_size - int - size of smoothing window for moving average
+    returns:
+        list with data after smoothing
+    '''
     
     array = pd.Series(array)
      
@@ -65,31 +84,34 @@ def calculate_moving_average(array,window_size=5):
     #moving_averages_list = moving_averages.tolist()
     return moving_averages.tolist()
     
-def calculate_sdbr(file, bg=0):
+def calculate_sdbr(dataset, bg=0):
     ''' Combines background subtraction second derivative calculation
     and moving average to perform SDBR on voltamperometric data.
-    file - pd.DataFrame with voltammetric data
-    bg (int) number of column in file which will be used to background subtraction
-    default = 0
+    parameters:
+        file - pd.DataFrame with voltammetric data
+        bg - int, default=0 - number of column in file which will be used to background subtraction
+    returns:
+        derivatives_df - pd.DataFrame with voltammetric data after SDBR
+    
     '''
     
     voltage = pd.read_csv("voltage.csv")
     voltage = voltage.iloc[:,0]
-    file = file.astype(float)
+    dataset = dataset.astype(float)
     
     # background subtraction
     
-    file = calculate_background_subtraction(file,bg)
-    file = file.interpolate()
+    dataset = calculate_background_subtraction(dataset,bg)
+    dataset = dataset.interpolate()
     
     window = 50
     #polyorder = 4 
     #deriv = 0
     
     # calculate second derivative for each row of the file
-    derivatives = file.apply(lambda row: sdbr(row.values, voltage), axis=1)
+    derivatives = dataset.apply(lambda row: sdbr(row.values), axis=1)
     
-    derivatives_df = pd.DataFrame(derivatives.tolist(), index=file.index)
+    derivatives_df = pd.DataFrame(derivatives.tolist(), index=dataset.index)
     
     #for better signal to noise ratio we will apply moving average
     moving_averages = derivatives_df.apply(lambda row: calculate_moving_average(row.values,window), axis=1)
@@ -135,12 +157,14 @@ def draw_heatmap(transposed_file):
     
 def draw_ct_plot(transposed_file, volt, tonic):
     ''' Function takes transposed file for creating plot current vs time
-    
-    volt (int) argument specifies which row of the DataFrame choose,
-    It should be integer from 0 to 849 as it describes index of a row
-    that corresponds to our desired voltage value'
-    and tonic (boolean) informs if user wants to create plot with row data or after SDBR
-    returns  data as a DataFrame'''
+    parameters:
+        volt - int - argument specifies which row of the DataFrame choose,
+        It should be integer from 0 to 849 as it describes index of a row
+        that corresponds to our desired voltage value'
+        and tonic (boolean) informs if user wants to create plot with row data or after SDBR
+    returns:
+        data as a DataFrame
+    '''
 
     # checking if DataFrame is transposed in a proper manner
     if transposed_file.shape[1] == 850:
@@ -176,11 +200,12 @@ def draw_ct_plot(transposed_file, volt, tonic):
     
 def draw_cv_plot(transposed_file, time, tonic):
     ''' Function takes transposed file for creating plot current vs voltage
-    
-    transposed_file - pd.DataFrame
-    time (int) argument specifies which column of the DataFrame choose,
-    there are 10 voltammograms for each second - and each column stores one voltammogram
-    and tonic (boolean) informs if user wants to create plot with row data or after SDBR'''
+    parameters:
+        transposed_file - pd.DataFrame
+        time  - int - argument specifies which column of the DataFrame choose,
+        there are 10 voltammograms for each second - and each column stores one voltammogram
+        and tonic - boolean -informs if user wants to create plot with row data or after SDBR
+    '''
 
     # checking if DataFrame is transposed in a proper manner
     if transposed_file.shape[1] == 850:
@@ -225,7 +250,7 @@ def draw_cv_plot(transposed_file, time, tonic):
 
 def analyze_transients(array, diff_from_noise=2, window=10, order=3):
     '''Function check number and amplitude of dopamine transients
-        
+    parameters: 
         array - object storing current values from voltammetry (current vs time)
         diff_from_noise (float, default=2) minimal diffrence in amplidude between noise and
         event, events with amplidute greater than difference will be counted
@@ -243,13 +268,17 @@ def analyze_transients(array, diff_from_noise=2, window=10, order=3):
         
         analyze_transients draws plot to show which events were counted as transients.
         
-        return list of indices from array corresponding to 
+    returns:
+        list of indices from array corresponding to 
         events counted as transients 
         and smoothed array
     '''
     
     try: 
-        array = np.array(array)
+        array = np.array(array)# Check if all elements are numeric
+        if not all(isinstance(x, (int, float)) or (isinstance(x, np.generic) and np.issubdtype(x.dtype, np.number)) for x in array):
+            raise TypeError("Can't convert your data to numpy.array with only numerical values")
+            
     except:
         raise TypeError("Can't convert your data to numpy.array")
         
