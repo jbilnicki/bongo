@@ -8,7 +8,7 @@
 <table class="heading">
 <tr class="heading-text decor">
 <td class="title">&nbsp;<br><strong class="title">voltammetry</strong></td>
-<td class="extra"><a href=".">index</a><br><a href="file:c%3A%5Cusers%5Cmsi%5Cdesktop%5Cstudia%5Cbongo%5Cbongo%5Cvoltammetry.py">c:\users\msi\desktop\studia\bongo\bongo\voltammetry.py</a></td></tr></table>
+<td class="extra"><a href=".">index</a><br><a href="file:/home/jakub/Documents/scripts/bongo/bongo/voltammetry.py">/home/jakub/Documents/scripts/bongo/bongo/voltammetry.py</a></td></tr></table>
     <p><span class="code">#&nbsp;-*-&nbsp;coding:&nbsp;utf-8&nbsp;-*-</span></p>
 <p>
 <table class="section">
@@ -28,55 +28,78 @@
     
 <tr><td class="decor functions-decor"><span class="code">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td><td>&nbsp;</td>
 <td class="singlecolumn"><dl><dt><a name="-analyze_transients"><strong>analyze_transients</strong></a>(array, diff_from_noise=2, window=10, order=3)</dt><dd><span class="code">Function&nbsp;check&nbsp;number&nbsp;and&nbsp;amplitude&nbsp;of&nbsp;dopamine&nbsp;transients<br>
-&nbsp;<br>
-array&nbsp;-&nbsp;object&nbsp;storing&nbsp;current&nbsp;values&nbsp;from&nbsp;voltammetry&nbsp;(current&nbsp;vs&nbsp;time)<br>
-diff_from_noise&nbsp;(float,&nbsp;default=2)&nbsp;minimal&nbsp;diffrence&nbsp;in&nbsp;amplidude&nbsp;between&nbsp;noise&nbsp;and<br>
-event,&nbsp;events&nbsp;with&nbsp;amplidute&nbsp;greater&nbsp;than&nbsp;difference&nbsp;will&nbsp;be&nbsp;counted<br>
-as&nbsp;transients&nbsp;(default=2)<br>
-window&nbsp;(int,&nbsp;default=10)&nbsp;length&nbsp;of&nbsp;window&nbsp;for&nbsp;smoothing<br>
-with&nbsp;savitzky-golay&nbsp;filter<br>
-order&nbsp;(int,&nbsp;default=3)&nbsp;order&nbsp;of&nbsp;fitted&nbsp;polynominal<br>
-&nbsp;<br>
-Function&nbsp;performs&nbsp;data&nbsp;smoothing&nbsp;for&nbsp;better&nbsp;performance.<br>
-Then&nbsp;finds&nbsp;peaks&nbsp;using&nbsp;numpy.find_peaks()&nbsp;function.<br>
-analyze_transients&nbsp;also&nbsp;fitts&nbsp;a&nbsp;polynominal&nbsp;to&nbsp;array&nbsp;and&nbsp;calculates<br>
-standard&nbsp;deviation&nbsp;to&nbsp;estimate&nbsp;noise&nbsp;level.<br>
-Finally&nbsp;function&nbsp;checks&nbsp;which&nbsp;peak&nbsp;has&nbsp;amplitude&nbsp;significantly&nbsp;greater<br>
-than&nbsp;background&nbsp;noise.<br>
-&nbsp;<br>
-analyze_transients&nbsp;draws&nbsp;plot&nbsp;to&nbsp;show&nbsp;which&nbsp;events&nbsp;were&nbsp;counted&nbsp;as&nbsp;transients.<br>
-&nbsp;<br>
-return&nbsp;list&nbsp;of&nbsp;indices&nbsp;from&nbsp;array&nbsp;corresponding&nbsp;to&nbsp;<br>
-events&nbsp;counted&nbsp;as&nbsp;transients&nbsp;<br>
-and&nbsp;smoothed&nbsp;array</span></dd></dl>
- <dl><dt><a name="-calculate_background_subtraction"><strong>calculate_background_subtraction</strong></a>(file, bg=0)</dt><dd><span class="code">Subtracts&nbsp;background&nbsp;(default:&nbsp;first&nbsp;row)&nbsp;from&nbsp;all&nbsp;rows&nbsp;in&nbsp;DataFrame</span></dd></dl>
- <dl><dt><a name="-calculate_moving_average"><strong>calculate_moving_average</strong></a>(array, window_size=5)</dt><dd><span class="code">Calculates&nbsp;rolling&nbsp;moving&nbsp;average&nbsp;for&nbsp;reducing&nbsp;noise</span></dd></dl>
- <dl><dt><a name="-calculate_sdbr"><strong>calculate_sdbr</strong></a>(file, bg=0)</dt><dd><span class="code">Combines&nbsp;background&nbsp;subtraction&nbsp;second&nbsp;derivative&nbsp;calculation<br>
+parameters:&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;array&nbsp;-&nbsp;object&nbsp;storing&nbsp;current&nbsp;values&nbsp;from&nbsp;voltammetry&nbsp;(current&nbsp;vs&nbsp;time)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;diff_from_noise&nbsp;(float,&nbsp;default=2)&nbsp;minimal&nbsp;diffrence&nbsp;in&nbsp;amplidude&nbsp;between&nbsp;noise&nbsp;and<br>
+&nbsp;&nbsp;&nbsp;&nbsp;event,&nbsp;events&nbsp;with&nbsp;amplidute&nbsp;greater&nbsp;than&nbsp;difference&nbsp;will&nbsp;be&nbsp;counted<br>
+&nbsp;&nbsp;&nbsp;&nbsp;as&nbsp;transients&nbsp;(default=2)<br>
+&nbsp;&nbsp;&nbsp;&nbsp;window&nbsp;(int,&nbsp;default=10)&nbsp;length&nbsp;of&nbsp;window&nbsp;for&nbsp;smoothing<br>
+&nbsp;&nbsp;&nbsp;&nbsp;with&nbsp;savitzky-golay&nbsp;filter<br>
+&nbsp;&nbsp;&nbsp;&nbsp;order&nbsp;(int,&nbsp;default=3)&nbsp;order&nbsp;of&nbsp;fitted&nbsp;polynominal<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Function&nbsp;performs&nbsp;data&nbsp;smoothing&nbsp;for&nbsp;better&nbsp;performance.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Then&nbsp;finds&nbsp;peaks&nbsp;using&nbsp;numpy.find_peaks()&nbsp;function.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;analyze_transients&nbsp;also&nbsp;fitts&nbsp;a&nbsp;polynominal&nbsp;to&nbsp;array&nbsp;and&nbsp;calculates<br>
+&nbsp;&nbsp;&nbsp;&nbsp;standard&nbsp;deviation&nbsp;to&nbsp;estimate&nbsp;noise&nbsp;level.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;Finally&nbsp;function&nbsp;checks&nbsp;which&nbsp;peak&nbsp;has&nbsp;amplitude&nbsp;significantly&nbsp;greater<br>
+&nbsp;&nbsp;&nbsp;&nbsp;than&nbsp;background&nbsp;noise.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;analyze_transients&nbsp;draws&nbsp;plot&nbsp;to&nbsp;show&nbsp;which&nbsp;events&nbsp;were&nbsp;counted&nbsp;as&nbsp;transients.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;<br>
+returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;list&nbsp;of&nbsp;indices&nbsp;from&nbsp;array&nbsp;corresponding&nbsp;to&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;events&nbsp;counted&nbsp;as&nbsp;transients&nbsp;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;smoothed&nbsp;array</span></dd></dl>
+ <dl><dt><a name="-calculate_background_subtraction"><strong>calculate_background_subtraction</strong></a>(dataset, bg=0)</dt><dd><span class="code">Subtracts&nbsp;background&nbsp;(default:&nbsp;first&nbsp;row)&nbsp;from&nbsp;all&nbsp;rows&nbsp;in&nbsp;DataFrame<br>
+parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dataset&nbsp;-&nbsp;pd.DataFrame&nbsp;with&nbsp;voltametric&nbsp;data<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bg&nbsp;-&nbsp;int&nbsp;-&nbsp;index&nbsp;of&nbsp;row&nbsp;that&nbsp;will&nbsp;be&nbsp;subtracted&nbsp;from&nbsp;the&nbsp;rest&nbsp;of&nbsp;data<br>
+returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bs&nbsp;-&nbsp;pd.DataFrame&nbsp;after&nbsp;background&nbsp;subtraction</span></dd></dl>
+ <dl><dt><a name="-calculate_moving_average"><strong>calculate_moving_average</strong></a>(array, window_size=5)</dt><dd><span class="code">Calculates&nbsp;rolling&nbsp;moving&nbsp;average&nbsp;for&nbsp;reducing&nbsp;noise<br>
+parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;array&nbsp;-&nbsp;our&nbsp;dataset<br>
+&nbsp;&nbsp;&nbsp;&nbsp;window_size&nbsp;-&nbsp;int&nbsp;-&nbsp;size&nbsp;of&nbsp;smoothing&nbsp;window&nbsp;for&nbsp;moving&nbsp;average<br>
+returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;list&nbsp;with&nbsp;data&nbsp;after&nbsp;smoothing</span></dd></dl>
+ <dl><dt><a name="-calculate_sdbr"><strong>calculate_sdbr</strong></a>(dataset, bg=0)</dt><dd><span class="code">Combines&nbsp;background&nbsp;subtraction&nbsp;second&nbsp;derivative&nbsp;calculation<br>
 and&nbsp;moving&nbsp;average&nbsp;to&nbsp;perform&nbsp;SDBR&nbsp;on&nbsp;voltamperometric&nbsp;data.<br>
-file&nbsp;-&nbsp;pd.DataFrame&nbsp;with&nbsp;voltammetric&nbsp;data<br>
-bg&nbsp;(int)&nbsp;number&nbsp;of&nbsp;column&nbsp;in&nbsp;file&nbsp;which&nbsp;will&nbsp;be&nbsp;used&nbsp;to&nbsp;background&nbsp;subtraction<br>
-default&nbsp;=&nbsp;0</span></dd></dl>
+parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;file&nbsp;-&nbsp;pd.DataFrame&nbsp;with&nbsp;voltammetric&nbsp;data<br>
+&nbsp;&nbsp;&nbsp;&nbsp;bg&nbsp;-&nbsp;int,&nbsp;default=0&nbsp;-&nbsp;number&nbsp;of&nbsp;column&nbsp;in&nbsp;file&nbsp;which&nbsp;will&nbsp;be&nbsp;used&nbsp;to&nbsp;background&nbsp;subtraction<br>
+returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;derivatives_df&nbsp;-&nbsp;pd.DataFrame&nbsp;with&nbsp;voltammetric&nbsp;data&nbsp;after&nbsp;SDBR</span></dd></dl>
  <dl><dt><a name="-draw_ct_plot"><strong>draw_ct_plot</strong></a>(transposed_file, volt, tonic)</dt><dd><span class="code">Function&nbsp;takes&nbsp;transposed&nbsp;file&nbsp;for&nbsp;creating&nbsp;plot&nbsp;current&nbsp;vs&nbsp;time<br>
-&nbsp;<br>
-volt&nbsp;(int)&nbsp;argument&nbsp;specifies&nbsp;which&nbsp;row&nbsp;of&nbsp;the&nbsp;DataFrame&nbsp;choose,<br>
-It&nbsp;should&nbsp;be&nbsp;integer&nbsp;from&nbsp;0&nbsp;to&nbsp;849&nbsp;as&nbsp;it&nbsp;describes&nbsp;index&nbsp;of&nbsp;a&nbsp;row<br>
-that&nbsp;corresponds&nbsp;to&nbsp;our&nbsp;desired&nbsp;voltage&nbsp;value'<br>
-and&nbsp;tonic&nbsp;(boolean)&nbsp;informs&nbsp;if&nbsp;user&nbsp;wants&nbsp;to&nbsp;create&nbsp;plot&nbsp;with&nbsp;row&nbsp;data&nbsp;or&nbsp;after&nbsp;SDBR<br>
-returns&nbsp;&nbsp;data&nbsp;as&nbsp;a&nbsp;DataFrame</span></dd></dl>
+parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;volt&nbsp;-&nbsp;int&nbsp;-&nbsp;argument&nbsp;specifies&nbsp;which&nbsp;row&nbsp;of&nbsp;the&nbsp;DataFrame&nbsp;choose,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;It&nbsp;should&nbsp;be&nbsp;integer&nbsp;from&nbsp;0&nbsp;to&nbsp;849&nbsp;as&nbsp;it&nbsp;describes&nbsp;index&nbsp;of&nbsp;a&nbsp;row<br>
+&nbsp;&nbsp;&nbsp;&nbsp;that&nbsp;corresponds&nbsp;to&nbsp;our&nbsp;desired&nbsp;voltage&nbsp;value'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;tonic&nbsp;(boolean)&nbsp;informs&nbsp;if&nbsp;user&nbsp;wants&nbsp;to&nbsp;create&nbsp;plot&nbsp;with&nbsp;row&nbsp;data&nbsp;or&nbsp;after&nbsp;SDBR<br>
+returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;data&nbsp;as&nbsp;a&nbsp;DataFrame</span></dd></dl>
  <dl><dt><a name="-draw_cv_plot"><strong>draw_cv_plot</strong></a>(transposed_file, time, tonic)</dt><dd><span class="code">Function&nbsp;takes&nbsp;transposed&nbsp;file&nbsp;for&nbsp;creating&nbsp;plot&nbsp;current&nbsp;vs&nbsp;voltage<br>
-&nbsp;<br>
-transposed_file&nbsp;-&nbsp;pd.DataFrame<br>
-time&nbsp;(int)&nbsp;argument&nbsp;specifies&nbsp;which&nbsp;column&nbsp;of&nbsp;the&nbsp;DataFrame&nbsp;choose,<br>
-there&nbsp;are&nbsp;10&nbsp;voltammograms&nbsp;for&nbsp;each&nbsp;second&nbsp;-&nbsp;and&nbsp;each&nbsp;column&nbsp;stores&nbsp;one&nbsp;voltammogram<br>
-and&nbsp;tonic&nbsp;(boolean)&nbsp;informs&nbsp;if&nbsp;user&nbsp;wants&nbsp;to&nbsp;create&nbsp;plot&nbsp;with&nbsp;row&nbsp;data&nbsp;or&nbsp;after&nbsp;SDBR</span></dd></dl>
+parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;transposed_file&nbsp;-&nbsp;pd.DataFrame<br>
+&nbsp;&nbsp;&nbsp;&nbsp;time&nbsp;&nbsp;-&nbsp;int&nbsp;-&nbsp;argument&nbsp;specifies&nbsp;which&nbsp;column&nbsp;of&nbsp;the&nbsp;DataFrame&nbsp;choose,<br>
+&nbsp;&nbsp;&nbsp;&nbsp;there&nbsp;are&nbsp;10&nbsp;voltammograms&nbsp;for&nbsp;each&nbsp;second&nbsp;-&nbsp;and&nbsp;each&nbsp;column&nbsp;stores&nbsp;one&nbsp;voltammogram<br>
+&nbsp;&nbsp;&nbsp;&nbsp;and&nbsp;tonic&nbsp;-&nbsp;boolean&nbsp;-informs&nbsp;if&nbsp;user&nbsp;wants&nbsp;to&nbsp;create&nbsp;plot&nbsp;with&nbsp;row&nbsp;data&nbsp;or&nbsp;after&nbsp;SDBR</span></dd></dl>
  <dl><dt><a name="-draw_heatmap"><strong>draw_heatmap</strong></a>(transposed_file)</dt><dd><span class="code">Creates&nbsp;colorplot&nbsp;-&nbsp;heatmap&nbsp;for&nbsp;whole&nbsp;voltamperometric&nbsp;dataset,<br>
 using&nbsp;seaborn&nbsp;and&nbsp;matplotlib.pyplot<br>
 &nbsp;<br>
 Takes&nbsp;transposed&nbsp;file&nbsp;so&nbsp;that&nbsp;time&nbsp;is&nbsp;on&nbsp;x&nbsp;axis&nbsp;and&nbsp;voltage&nbsp;on&nbsp;y&nbsp;axis</span></dd></dl>
- <dl><dt><a name="-open_data"><strong>open_data</strong></a>(path)</dt><dd><span class="code">function&nbsp;reads&nbsp;data&nbsp;from&nbsp;excel&nbsp;or&nbsp;csv&nbsp;file&nbsp;and&nbsp;creates&nbsp;pd.DataFrame.<br>
-path&nbsp;(string)</span></dd></dl>
- <dl><dt><a name="-sdbr"><strong>sdbr</strong></a>(current, voltage)</dt><dd><span class="code">function&nbsp;reduces&nbsp;noise&nbsp;<br>
-and&nbsp;calculates&nbsp;second&nbsp;derivative&nbsp;using&nbsp;savitzky-golay&nbsp;filter<br>
-takes&nbsp;two&nbsp;arguments:&nbsp;current&nbsp;i&nbsp;voltage</span></dd></dl>
+ <dl><dt><a name="-open_data"><strong>open_data</strong></a>(path)</dt><dd><span class="code">Function&nbsp;reads&nbsp;data&nbsp;from&nbsp;excel&nbsp;or&nbsp;csv&nbsp;file&nbsp;and&nbsp;creates&nbsp;pd.DataFrame.<br>
+parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;path&nbsp;-&nbsp;string&nbsp;-&nbsp;path&nbsp;to&nbsp;.xlsx&nbsp;or&nbsp;.csv&nbsp;file&nbsp;containing&nbsp;voltametric&nbsp;data&nbsp;from&nbsp;HDCV&nbsp;software<br>
+returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;dataset&nbsp;-&nbsp;pd.DataFrame&nbsp;with</span></dd></dl>
+ <dl><dt><a name="-sdbr"><strong>sdbr</strong></a>(current, window_length=50, polyorder=3, deriv=2)</dt><dd><span class="code">function&nbsp;reduces&nbsp;noise&nbsp;and&nbsp;calculates&nbsp;second&nbsp;derivative&nbsp;using&nbsp;savitzky-golay&nbsp;filter<br>
+parameters:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;current&nbsp;-&nbsp;array&nbsp;with&nbsp;data&nbsp;from&nbsp;single&nbsp;voltammogram<br>
+&nbsp;&nbsp;&nbsp;&nbsp;window_length&nbsp;-int,&nbsp;default=50&nbsp;-&nbsp;length&nbsp;of&nbsp;window&nbsp;for&nbsp;smoothing<br>
+&nbsp;&nbsp;&nbsp;&nbsp;with&nbsp;savitzky-golay&nbsp;filter<br>
+&nbsp;&nbsp;&nbsp;&nbsp;polyorder&nbsp;-&nbsp;int,&nbsp;default=3&nbsp;-&nbsp;order&nbsp;of&nbsp;fitted&nbsp;polynominal<br>
+&nbsp;&nbsp;&nbsp;&nbsp;deriv&nbsp;-&nbsp;int,&nbsp;default=2&nbsp;-&nbsp;order&nbsp;of&nbsp;derivative&nbsp;calculated&nbsp;for&nbsp;current&nbsp;<br>
+returns:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;sd&nbsp;-&nbsp;array&nbsp;-&nbsp;data&nbsp;for&nbsp;current&nbsp;after&nbsp;smoothing&nbsp;and&nbsp;calculating&nbsp;derivative</span></dd></dl>
 </td></tr></table>
 </body></html>
